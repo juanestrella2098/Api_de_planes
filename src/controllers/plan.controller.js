@@ -1,4 +1,5 @@
 import Plan from "../models/Plan";
+import { comunidadesAutonomas } from "../utils/utils";
 
 export const findAllPlans = async (req, res) => {
   try {
@@ -37,6 +38,13 @@ export const createPlan = async (req, res) => {
       return res.status(400).json({
         message:
           "Something in the body is missing: nombre, foto, desc, tipoPlan, cAutonoma, provincia, numcoches, costePlan",
+      });
+    }
+
+    if (!comunidadesAutonomas[cAutonoma].includes(provincia)) {
+      return res.status(400).json({
+        message:
+          "The given province does not belong to the autonomous community or you have spelt it wrong, it has to have its accents and start with a capital letter.",
       });
     }
 
@@ -95,10 +103,22 @@ export const updatePlan = async (req, res) => {
   try {
     const { id } = req.params;
     const { body } = req;
+    
+
+    if('cAutonoma' in body){
+      if (!comunidadesAutonomas[body.cAutonoma].includes(body.provincia)) {
+        return res.status(400).json({
+          message:
+            "The given province does not belong to the autonomous community or you have spelt it wrong, it has to have its accents and start with a capital letter.",
+        });
+      }
+    }
+
     const updatedPlan = await Plan.findByIdAndUpdate(id, body);
 
     res.json({
       updatedPlan,
+      message: "The plan was successfully edited",
     });
   } catch (error) {
     res.status(500).json({

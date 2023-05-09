@@ -1,5 +1,5 @@
 import express from "express";
-import TaskRoutes from "./routes/task.routes";
+import PlanRoutes from "./routes/plan.routes";
 import morgan from "morgan";
 import cors from "cors";
 
@@ -15,6 +15,6 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 
 //routes
-app.use("/api/plans", TaskRoutes);
+app.use("/api/plans", PlanRoutes);
 
 export default app;

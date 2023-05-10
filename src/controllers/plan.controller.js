@@ -43,8 +43,7 @@ export const createPlan = async (req, res) => {
 
     if (!comunidadesAutonomas[cAutonoma].includes(provincia)) {
       return res.status(400).json({
-        message:
-          "The given province does not belong to the autonomous community or you have spelt it wrong, it has to have its accents and start with a capital letter.",
+        message: `The given province (${provincia}) does not belong to the autonomous community (${cAutonoma}) or you have spelt it wrong, it has to have its accents and start with a capital letter.`,
       });
     }
 
@@ -59,7 +58,7 @@ export const createPlan = async (req, res) => {
       costePlan: costePlan,
     });
     const planSaved = await newPlan.save();
-    res.json(planSaved);
+    res.json({ message: "The plan has been successfully created", planSaved });
   } catch (error) {
     res.status(500).json({
       message: error.message || "Something goes wrong creating the plan",
@@ -90,7 +89,7 @@ export const deletePlan = async (req, res) => {
     const { id } = req.params;
     const planDeleted = await Plan.findByIdAndDelete(id);
     res.json({
-      message: `${planDeleted.nombre} ${id} plan were deleted successfully`,
+      message: `Plan with ${id} were deleted successfully`,
     });
   } catch (error) {
     res.status(500).json({
@@ -103,22 +102,20 @@ export const updatePlan = async (req, res) => {
   try {
     const { id } = req.params;
     const { body } = req;
-    
 
-    if('cAutonoma' in body){
+    if ("cAutonoma" in body) {
       if (!comunidadesAutonomas[body.cAutonoma].includes(body.provincia)) {
         return res.status(400).json({
-          message:
-            "The given province does not belong to the autonomous community or you have spelt it wrong, it has to have its accents and start with a capital letter.",
+          message: `The given province (${body.provincia}) does not belong to the autonomous community (${body.cAutonoma}) or you have spelt it wrong, it has to have its accents and start with a capital letter.`,
         });
       }
     }
 
-    const updatedPlan = await Plan.findByIdAndUpdate(id, body);
+    const updatedPlan = await Plan.findByIdAndUpdate(id, body, { new: true });
 
     res.json({
-      updatedPlan,
       message: "The plan was successfully edited",
+      updatedPlan,
     });
   } catch (error) {
     res.status(500).json({

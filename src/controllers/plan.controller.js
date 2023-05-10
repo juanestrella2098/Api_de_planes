@@ -25,22 +25,6 @@ export const createPlan = async (req, res) => {
       costePlan,
     } = req.body;
 
-    if (
-      !nombre ||
-      !foto ||
-      !desc ||
-      !tipoPlan ||
-      !cAutonoma ||
-      !provincia ||
-      !numCoches ||
-      !costePlan
-    ) {
-      return res.status(400).json({
-        message:
-          "Something in the body is missing: nombre, foto, desc, tipoPlan, cAutonoma, provincia, numcoches, costePlan",
-      });
-    }
-
     if (!comunidadesAutonomas[cAutonoma].includes(provincia)) {
       return res.status(400).json({
         message: `The given province (${provincia}) does not belong to the autonomous community (${cAutonoma}) or you have spelt it wrong, it has to have its accents and start with a capital letter.`,

@@ -2,16 +2,30 @@ import { Router } from "express";
 
 import * as planController from "../controllers/plan.controller";
 
+import * as planValidator from "../validators/plan.validator";
+
 const router = Router();
 
 router.get("/", planController.findAllPlans);
 
-router.get("/:id", planController.findOnePlan);
+router.get(
+  "/:id",
+  planValidator.findOnePlanValidator,
+  planController.findOnePlan
+);
 
-router.post("/", planController.createPlan);
+router.post("/", planValidator.createPlanValidator, planController.createPlan);
 
-router.put("/:id", planController.updatePlan);
+router.put(
+  "/:id",
+  planValidator.updatePlanValidator,
+  planController.updatePlan
+);
 
-router.delete("/:id", planController.deletePlan);
+router.delete(
+  "/:id",
+  planValidator.deletePlanValidator,
+  planController.deletePlan
+);
 
 export default router;

@@ -14,9 +14,8 @@ export const createPlanValidator = [
     .escape()
     .optional()
     .trim()
-    .withMessage("Field 'foto' cannot have spaces")
     .isURL()
-    .withMessage("Field 'foto' needs to be a URL image"),
+    .withMessage("Field 'foto' need to be an URL image"),
   body("desc").escape().optional(),
   body("tipoPlan").escape().optional(),
   body("cAutonoma").escape().optional(),
@@ -63,7 +62,6 @@ export const updatePlanValidator = [
     .notEmpty()
     .withMessage("Field 'foto' cannot be empty")
     .trim()
-    .withMessage("Field 'foto' cannot have spaces")
     .isURL()
     .withMessage("Field 'foto' needs to be a URL image"),
   body("desc").escape().notEmpty().withMessage("Field 'desc' cannot be empty"),

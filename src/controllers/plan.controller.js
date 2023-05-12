@@ -1,9 +1,21 @@
 import Plan from "../models/Plan";
 import { comunidadesAutonomas } from "../utils/utils";
 
-export const findAllPlans = async (req, res) => {
+export const findAllPlansOrByQuery = async (req, res) => {
   try {
-    const plansFounded = await Plan.find();
+    const query = req.query;
+    var plansFounded = [];
+
+    if (req.query.tipoPlan) {
+      const tipoPlan = query.tipoPlan;
+      delete query.tipoPlan;
+      var plans = await Plan.find(query);
+      plansFounded = plans.filter((plan) => {
+        return plan.tipoPlan.some((tipo) => tipoPlan.includes(tipo));
+      });
+    } else {
+      plansFounded = await Plan.find(query);
+    }
     res.json(plansFounded);
   } catch (error) {
     res.status(500).json({
@@ -72,6 +84,11 @@ export const deletePlan = async (req, res) => {
   try {
     const { id } = req.params;
     const planDeleted = await Plan.findByIdAndDelete(id);
+
+    if (planDeleted == null) {
+      return res.status(404).json({ message: "The plan doesn't exists" });
+    }
+
     res.json({
       message: `Plan with ${id} were deleted successfully`,
     });
@@ -96,6 +113,10 @@ export const updatePlan = async (req, res) => {
     }
 
     const updatedPlan = await Plan.findByIdAndUpdate(id, body, { new: true });
+
+    if (updatedPlan == null) {
+      return res.status(404).json({ message: "The plan doesn't exists" });
+    }
 
     res.json({
       message: "The plan was successfully edited",

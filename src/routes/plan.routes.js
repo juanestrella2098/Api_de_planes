@@ -6,13 +6,13 @@ import * as planValidator from "../validators/plan.validator";
 
 const router = Router();
 
-router.get("/", planController.findAllPlans);
-
 router.get(
   "/:id",
   planValidator.findOnePlanValidator,
   planController.findOnePlan
 );
+
+router.get("/*", planController.findAllPlansOrByQuery);
 
 router.post("/", planValidator.createPlanValidator, planController.createPlan);
 

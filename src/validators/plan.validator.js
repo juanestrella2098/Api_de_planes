@@ -47,7 +47,6 @@ export const deletePlanValidator = [
 ];
 
 export const createPlanValidator = [
-  param("id").exists().withMessage("The id parameter is required"),
   body("nombre")
     .escape()
     .notEmpty()
@@ -55,8 +54,7 @@ export const createPlanValidator = [
   body("foto")
     .notEmpty()
     .withMessage("Field 'foto' cannot be empty")
-    .trim()
-    .isURL(),
+    .trim(),
   body("desc").escape().notEmpty().withMessage("Field 'desc' cannot be empty"),
   body("tipoPlan")
     .escape()

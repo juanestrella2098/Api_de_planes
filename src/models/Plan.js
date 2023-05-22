@@ -8,8 +8,10 @@ const PlanSchema = new Schema(
     tipoPlan: [{ type: String }],
     cAutonoma: { type: String, require: true },
     provincia: { type: String, require: true },
-    numCoches: { type: Number, require: true },
+    rating: { type: Number, require: true, default: 0 },
     costePlan: { type: Number, require: true },
+    contador : {type: Number, require:true}
+
   },
   {
     versionKey: false,

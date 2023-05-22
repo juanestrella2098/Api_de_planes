@@ -4,6 +4,8 @@ import * as planController from "../controllers/plan.controller";
 
 import * as planValidator from "../validators/plan.validator";
 
+import * as userController from "../controllers/user.controller";
+
 const router = Router();
 
 router.get(

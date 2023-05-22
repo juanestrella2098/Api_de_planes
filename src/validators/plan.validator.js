@@ -16,14 +16,14 @@ export const updatePlanValidator = [
   body("tipoPlan").escape().optional(),
   body("cAutonoma").escape().optional(),
   body("provincia").escape().optional(),
-  body("numCoches")
+  body("rating")
     .escape()
     .optional()
     .isInt({
       min: 0,
-      max: 3,
+      max: 5,
     })
-    .withMessage("Field 'numCoches' needs to be a integer"),
+    .withMessage("Field 'rating' needs to be a integer"),
   body("costePlan")
     .escape()
     .optional()
@@ -32,7 +32,7 @@ export const updatePlanValidator = [
       max: 5,
     })
     .withMessage(
-      "Field 'numCoches' needs to be a integer, min value: 0 and max value: 5"
+      "Field 'costePlan' needs to be a integer, min value: 0 and max value: 5"
     ),
   (req, res, next) => {
     validatorHandler(req, res, next);
@@ -68,15 +68,15 @@ export const createPlanValidator = [
     .escape()
     .notEmpty()
     .withMessage("Field 'provincia' cannot be empty"),
-  body("numCoches")
+  body("rating")
     .escape()
     .notEmpty()
-    .withMessage("Field 'numCoches' cannot be empty")
+    .withMessage("Field 'rating' cannot be empty")
     .isInt({
       min: 0,
-      max: 3,
+      max: 5,
     })
-    .withMessage("Field 'numCoches' needs to be a integer"),
+    .withMessage("Field 'rating' needs to be a integer"),
   body("costePlan")
     .escape()
     .notEmpty()

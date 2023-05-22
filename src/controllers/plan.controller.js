@@ -33,8 +33,9 @@ export const createPlan = async (req, res) => {
       tipoPlan,
       cAutonoma,
       provincia,
-      numCoches,
+      rating,
       costePlan,
+      contador
     } = req.body;
 
     if (!comunidadesAutonomas[cAutonoma].includes(provincia)) {
@@ -50,8 +51,9 @@ export const createPlan = async (req, res) => {
       tipoPlan: tipoPlan,
       cAutonoma: cAutonoma,
       provincia: provincia,
-      numCoches: numCoches,
+      rating: rating,
       costePlan: costePlan,
+      contador: contador
     });
     const planSaved = await newPlan.save();
     res.json({ message: "The plan has been successfully created", planSaved });

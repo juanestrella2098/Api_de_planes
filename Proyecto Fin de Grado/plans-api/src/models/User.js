@@ -12,6 +12,7 @@ const UserSchema = new Schema(
         {
           id: { type: String, required: true },
           cantVotada: { type: Number, default: 0 },
+          votado: { type: Boolean, default: false },
         },
       ],
       default: [],

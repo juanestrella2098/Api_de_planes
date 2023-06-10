@@ -10,7 +10,8 @@ const PlanSchema = new Schema(
     provincia: { type: String, require: true },
     rating: { type: Number, require: true, default: 0 },
     costePlan: { type: Number, require: true },
-    contador : {type: Number, require:true}
+    contador : {type: Number, require:true},
+    cantSumada: {type: Number, require:true, default  : 0}
 
   },
   {

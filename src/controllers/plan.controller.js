@@ -35,6 +35,7 @@ export const createPlan = async (req, res) => {
       provincia,
       rating,
       costePlan,
+      cantSumada,
       contador
     } = req.body;
 
@@ -53,6 +54,7 @@ export const createPlan = async (req, res) => {
       provincia: provincia,
       rating: rating,
       costePlan: costePlan,
+      cantSumada: cantSumada,
       contador: contador
     });
     const planSaved = await newPlan.save();
@@ -106,6 +108,7 @@ export const updatePlan = async (req, res) => {
     const { id } = req.params;
     const { body } = req;
 
+
     if ("cAutonoma" in body) {
       if (!comunidadesAutonomas[body.cAutonoma].includes(body.provincia)) {
         return res.status(400).json({
@@ -126,7 +129,7 @@ export const updatePlan = async (req, res) => {
     });
   } catch (error) {
     res.status(500).json({
-      message: "Something goes wrong updating the plan",
+      message: error.message,
     });
   }
 };

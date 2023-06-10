@@ -62,9 +62,6 @@ export const deleteUser = async (req, res) => {
       const { idFirebase } = req.params;
       const { body } = req;
       delete body._id;
-      
-      console.log('a')
-      console.log(body);
   
       const updateUser = await User.findOneAndUpdate( {idFirebase: idFirebase} , {$set :body}, { new: true });
 
